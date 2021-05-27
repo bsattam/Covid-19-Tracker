@@ -5,10 +5,10 @@ countryJSON.forEach(countryListObject => {
     let tempCountry = countryListObject.country;
     countryDropdownString += `<li><a class="dropdown-item country-list" href="#">${tempCountry}</a></li>`;
 })
-console.log(countryDropdownString);
+//console.log(countryDropdownString);
 
 
-const countryDropDown = document.getElementById('countryDropdown');
+const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
 
 let selectedCountry;
@@ -24,6 +24,52 @@ countryList.forEach((item, index) => {
     })
 });
 
+
+
+const cardCountryName = document.querySelector('.country-name');
+const cardConfirmedCases = document.querySelector('.confirmed-cases');
+const cardPercentageConfirmed = document.querySelector('.percentage-confirmed');
+const cardDeaths = document.querySelector('.deaths');
+const cardRecovered = document.querySelector('recovered');
+const cardCompletelyVaccinated = document.querySelector('.completely-vaccinated');
+const cardPartiallyVaccinated = document.querySelector('.partially-vaccinated');
+const cardPercentageVaccinated = document.querySelector('.percentage-vaccinated');
+
+
+const getData = async (url) => {
+    return fetch(url).then(res => {
+        return res.json();
+    });
+};
+
+const fetchCountryGeneralData = async function(name){
+    const data = await Promise.all([
+        getData(`https://covid-api.mmediagroup.fr/v1/cases?ab=${name}`),
+        getData(`https://covid-api.mmediagroup.fr/v1/vaccines?ab=${name}`)
+    ]);
+    return data;
+}
+
+const fetchCountryHistoryData = async function(name){
+    const data = await Promise.all([
+        getData(`https://covid-api.mmediagroup.fr/v1/history?ab=${name}&status=deaths`),
+        getData(`https://covid-api.mmediagroup.fr/v1/history?ab=${name}&status=confirmed`),
+        getData(`https://covid-api.mmediagroup.fr/v1/history?ab=${name}&status=recovered`)
+    ]);
+    return data;
+}
+
+const displayCountryGeneralData = function(data1){
+    cardCountryName.innerText = data1[0].All.country;
+}
+
+const countrySearchButton = document.getElementById('country-search-button');
+countrySearchButton.addEventListener('click', async ()=>{
+    const data1 = await fetchCountryGeneralData(selectedCountryCode);
+    displayCountryGeneralData(data1);
+    const data2 = await fetchCountryHistoryData(selectedCountryCode);
+    
+});
 
 
 var ctx = document.getElementById("mychart").getContext('2d');
