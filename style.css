@@ -11,5 +11,16 @@ body{
     width: 300px;
     overflow-y: scroll;
 }
+#canvas-container-container{
+    width: 75vw;
+}
 
+#id{
+    height: 100vh;
+    width: 100%;
+    background-image: url('background-image.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat:
+}
 

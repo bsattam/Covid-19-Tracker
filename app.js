@@ -24,18 +24,43 @@ countryList.forEach((item, index) => {
     })
 });
 
+const initiateGeneralDetailsContainer = function(){
+    generalDetailsContainer.innerHTML = `
+    <h1 class="country-name"></h1>
+    <h3 class="confirmed-cases"></h3>
+    <h6 class="percentage-confirmed"></h6>
+    <h3 class="deaths"></h3>
+    <h3 class="recovered"></h3>
+    <h3 class="completely-vaccinated"></h3>
+    <h3 class="partially-vaccinated"></h3>
+    <h3 class="percentage-vaccinated"></h3>
+    `
+}
 
+let cardCountryName;
+let cardConfirmedCases;
+let cardPercentageConfirmed;
+let cardDeaths;
+let cardRecovered; 
+let cardCompletelyVaccinated;
+let cardPartiallyVaccinated;
+let cardPercentageVaccinated;
 
-const cardCountryName = document.querySelector('.country-name');
-const cardConfirmedCases = document.querySelector('.confirmed-cases');
-const cardPercentageConfirmed = document.querySelector('.percentage-confirmed');
-const cardDeaths = document.querySelector('.deaths');
-const cardRecovered = document.querySelector('.recovered');
-const cardCompletelyVaccinated = document.querySelector('.completely-vaccinated');
-const cardPartiallyVaccinated = document.querySelector('.partially-vaccinated');
-const cardPercentageVaccinated = document.querySelector('.percentage-vaccinated');
-
+const generalDetailsContainer = document.getElementById('general-details-container');
 const canvasContainer = document.getElementById('canvas-container');
+
+
+
+const initiateDomOperators = function(){
+    cardCountryName = document.querySelector('.country-name');
+    cardConfirmedCases = document.querySelector('.confirmed-cases');
+    cardPercentageConfirmed = document.querySelector('.percentage-confirmed');
+    cardDeaths = document.querySelector('.deaths');
+    cardRecovered = document.querySelector('.recovered');
+    cardCompletelyVaccinated = document.querySelector('.completely-vaccinated'); 
+    cardPartiallyVaccinated = document.querySelector('.partially-vaccinated');
+    cardPercentageVaccinated = document.querySelector('.percentage-vaccinated');
+}
 
 
 
@@ -136,6 +161,8 @@ const displayCountryHistoryData = function(data2){
 const countrySearchButton = document.getElementById('country-search-button');
 countrySearchButton.addEventListener('click', async ()=>{
     canvasContainer.innerHTML = "";
+    initiateGeneralDetailsContainer();
+    initiateDomOperators();
     const data1 = await fetchCountryGeneralData(selectedCountryCode);
     displayCountryGeneralData(data1);
     const data2 = await fetchCountryHistoryData(selectedCountryCode);
@@ -160,7 +187,9 @@ const makeChart = function (type, Dates, Counts){
                 borderColor: [
                     'rgba(255, 99, 132, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2,
+                pointRadius: 2,
+                pointBorderWidth: 0
             }]
         },
         options: {
@@ -191,3 +220,99 @@ const makeChart = function (type, Dates, Counts){
 
 
 // ,{"country":"Aruba","code":"AW"} is removed from the json, because this gives the whole list of all countries present
+
+
+
+
+/*
+Chart.defaults.global.legend.display = false;
+var lineChartData = {
+labels: ['20°', '30°', '40°', '50°', '60°', '70°', '80°'],
+datasets: [{
+  data: [null, null, null, 400, 320, 220, 90],
+  pointBorderColor: "rgba(75,192,192,1)",
+  pointBackgroundColor: "#fff",
+  borderColor: '#FFEC8B',
+  pointBorderWidth: 0,
+  pointHoverRadius: 0,
+  pointHoverBackgroundColor: "rgba(75,192,192,1)",
+  pointHoverBorderColor: "rgba(220,220,220,1)",
+  pointHoverBorderWidth: 0,
+  lineWidth: 100,
+  pointRadius: 0,
+  pointHitRadius: 0,
+},{
+  data: [550, 520, 470, 400, null, null, null],
+  borderColor: '#ff8800',
+  pointBorderWidth: 0,
+  pointHoverRadius: 0,
+  pointHoverBackgroundColor: "rgba(75,192,192,1)",
+  pointHoverBorderColor: "rgba(220,220,220,1)",
+  pointHoverBorderWidth: 0,
+  pointRadius: 0,
+  pointHitRadius: 0,
+},
+{
+    data: [220, 220, 220, 220, 220, 220, 220],
+    borderColor: '#008080',
+    borderDash: [10, 10],
+    pointBorderWidth: 0,
+    pointHoverRadius: 0,
+    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+    pointHoverBorderColor: "rgba(220,220,220,1)",
+    pointHoverBorderWidth: 0,
+    pointRadius: 0,
+    pointHitRadius: 0,
+  }
+]
+};
+
+var ctx = document.getElementById("canvas2").getContext("2d");
+var myChart = new Chart(ctx, {
+ type: "line",
+ beginAtZero: true,
+ scaleOverride:true,
+ scaleSteps:9,
+ scaleStartValue:0,
+ lineWidth: 100,
+ scaleStepWidth:100,
+ data: lineChartData,
+ options: {
+    elements: {
+        line: {
+            fill: false
+        }
+    },
+    style: {
+      strokewidth: 10
+    },
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Temperatuur - Celcius'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        ticks: {
+            max: 600,
+            min: 0,
+            stepSize: 200,
+            userCallback: function(value, index, values) {
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join('.');
+                return value + '%';
+              }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Rendement'
+        }
+      }]
+    }
+  }
+})
+*/
