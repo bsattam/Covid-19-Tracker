@@ -5,10 +5,11 @@ body{
     padding: 0;
 }
 
-#countryDropdown{
+#country-dropdown{
     background-color: lightblue;
     height: 400px;
-    width: 200px;
+    width: 300px;
     overflow-y: scroll;
 }
+
 
