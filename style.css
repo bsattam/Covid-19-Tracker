@@ -65,10 +65,13 @@ canvas{
 #country-selector-button{
     width: 300px;
     background-color: #0a0a0a;
+    transition: 0.5s;
+}
+
+.glow-border{
     border-color: beige;
     border-radius: 5px;
     border-width: 2px;
-    transition: 0.5s;
 }
 
 #search{
@@ -81,6 +84,10 @@ canvas{
     height: 200px;
     width: 300px;
     overflow-y: scroll;
+}
+
+#country-dropdown > li >a:hover{
+    background-color: black;
 }
 
 #general-details-container {
@@ -118,11 +125,11 @@ canvas{
         letter-spacing: 5px;
     }
     #country-selector-button{
-        width: 175px;
+        width: 200px;
         font-size: 10px;
     }
     #country-dropdown{
-        width: 200px;
+        width: 275px;
     }
     #country-search-button{
         width: 60px;
