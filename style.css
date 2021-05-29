@@ -48,7 +48,7 @@ canvas{
 
 #overlay{
     background-color: black;
-
+    height: 100vh;
     position: fixed;
     top: 0;
     bottom: 0;

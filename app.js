@@ -7,8 +7,13 @@ countryJSON.forEach(countryListObject => {
 })
 //console.log(countryDropdownString);
 
+const heading = document.querySelector('.heading');
+heading.innerText = "" + window.screen.width + " " + window.screen.height;
+
+/*
 const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
+
 
 let selectedCountry;
 let selectedCountryCode;
@@ -25,7 +30,7 @@ countryList.forEach((item, index) => {
 
 const initiateGeneralDetailsContainer = function(){
     generalDetailsContainer.innerHTML = `
-    <h5 class="country-name py-5 text-white"></h5>
+    <h5 class="country-name py-5 text-white">Loading Data...</h5>
     <h5 class="confirmed-cases text-danger"></h5>
     <h5 class="percentage-confirmed text-danger"></h5>
     <h5 class="deaths text-danger"></h5>
@@ -175,7 +180,8 @@ const makeChart = function (type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
     if (window.screen.width < 700)
         chart.height = 600;
-    //chart.height = 800;
+
+    
     var myChart = new Chart(chart, {
         type: 'line',
         data: {
@@ -193,10 +199,19 @@ const makeChart = function (type, Dates, Counts){
                 pointRadius: 2,
                 pointBorderWidth: 0
             }]
+            
         },
         options: {
             responsive: true,
             mainAspectRatio: false,
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -216,10 +231,10 @@ const makeChart = function (type, Dates, Counts){
     });
 }
 
+*/
 
 
-
-
+// 1536 864
 
 // ,{"country":"Aruba","code":"AW"} is removed from the json, because this gives the whole list of all countries present
 
