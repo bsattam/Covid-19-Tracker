@@ -173,6 +173,8 @@ countrySearchButton.addEventListener('click', async ()=>{
 
 const makeChart = function (type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
+    if (window.screen.width < 700)
+        chart.height = 600;
     //chart.height = 800;
     var myChart = new Chart(chart, {
         type: 'line',
