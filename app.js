@@ -97,7 +97,6 @@ const displayCountryGeneralData = function(data1){
     cardRecovered.innerText =   `Total Recovered: ${data1[0].All.recovered}`;
     cardCompletelyVaccinated.innerText = `Completely Vaccinated: ${data1[1].All.people_vaccinated}`;
     cardPartiallyVaccinated.innerText = `Partially Vaccinated: ${data1[1].All.people_partially_vaccinated}`;
-    cardPercentageVaccinated.innerText = `Percentage of population Vaccinated: ${((parseFloat(data1[1].All.people_partially_vaccinated)+parseFloat(data1[1].All.people_vaccinated))/parseFloat(data1[0].All.population)*100).toFixed(4)}`;
 }
 
 const checkError = function(count){
@@ -174,6 +173,7 @@ countrySearchButton.addEventListener('click', async ()=>{
 
 const makeChart = function (type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
+    //chart.height = 800;
     var myChart = new Chart(chart, {
         type: 'line',
         data: {
