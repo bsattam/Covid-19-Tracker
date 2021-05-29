@@ -90,6 +90,10 @@ canvas{
     background-color: black;
 }
 
+#spinner{
+    display: none;
+}
+
 #general-details-container {
     font-size: 25px;
     width: 75vw;
@@ -122,18 +126,24 @@ canvas{
 @media only screen and (max-width: 700px) {
     .heading{
         font-size: 30px;
+        font-weight: bold;
         letter-spacing: 5px;
     }
+    .sub-heading{
+        font-size: 16px;
+    }
+
     #country-selector-button{
         width: 200px;
-        font-size: 10px;
+        height: 35px;
+        font-size: 13px;
     }
     #country-dropdown{
         width: 275px;
     }
     #country-search-button{
         width: 60px;
-        height: 30px;
+        height: 33px;
         font-size: 10px;
         margin-left: 0;
     }

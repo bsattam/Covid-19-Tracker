@@ -36,7 +36,7 @@ const initiateGeneralDetailsContainer = function(){
     <p class="deaths text-danger"></p>
     <p class="recovered text-success mt-5"></p>
     <p class="completely-vaccinated text-success"></p>
-    <p class="partially-vaccinated text-success mb-5"></p>
+    <p class="partially-vaccinated text-success pb-5"></p>
     `
 }
 
@@ -51,6 +51,7 @@ let cardPercentageVaccinated;
 
 const generalDetailsContainer = document.getElementById('general-details-container');
 const canvasContainer = document.getElementById('canvas-container');
+const spinner = document.getElementById('spinner');
 
 
 const initiateDomOperators = function(){
@@ -161,13 +162,17 @@ const displayCountryHistoryData = function(data2){
 
 const countrySearchButton = document.getElementById('country-search-button');
 countrySearchButton.addEventListener('click', async ()=>{
+    spinner.style.display = "block";
     canvasContainer.innerHTML = "";
+    generalDetailsContainer.style.display = "none";
     initiateGeneralDetailsContainer();
     initiateDomOperators();
     const data1 = await fetchCountryGeneralData(selectedCountryCode);
+    generalDetailsContainer.style.display = "block";
     displayCountryGeneralData(data1);
     const data2 = await fetchCountryHistoryData(selectedCountryCode);
     console.log(data2);
+    spinner.style.display = "none";
     displayCountryHistoryData(data2);
     
 });
