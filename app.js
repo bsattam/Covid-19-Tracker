@@ -6,11 +6,11 @@ countryJSON.forEach(countryListObject => {
     countryDropdownString += `<li><a class="dropdown-item country-list text-white" href="#">${tempCountry}</a></li>`;
 })
 //console.log(countryDropdownString);
-
+/*
 const heading = document.querySelector('.heading');
 heading.innerText = "" + window.screen.width + " " + window.screen.height;
+*/
 
-/*
 const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
 
@@ -30,14 +30,14 @@ countryList.forEach((item, index) => {
 
 const initiateGeneralDetailsContainer = function(){
     generalDetailsContainer.innerHTML = `
-    <h5 class="country-name py-5 text-white">Loading Data...</h5>
-    <h5 class="confirmed-cases text-danger"></h5>
-    <h5 class="percentage-confirmed text-danger"></h5>
-    <h5 class="deaths text-danger"></h5>
-    <h5 class="recovered text-success"></h5>
-    <h5 class="completely-vaccinated text-success"></h5>
-    <h5 class="partially-vaccinated text-success"></h5>
-    <h5 class="percentage-vaccinated text-success pb-5"></h5>
+    <p class="country-name py-5 text-white">Loading Data...</p>
+    <p class="confirmed-cases text-danger"></p>
+    <p class="percentage-confirmed text-danger"></p>
+    <p class="deaths text-danger"></p>
+    <p class="recovered text-success mt-5"></p>
+    <p class="completely-vaccinated text-success"></p>
+    <p class="partially-vaccinated text-success"></p>
+    <p class="percentage-vaccinated text-success pb-5"></p>
     `
 }
 
@@ -231,9 +231,10 @@ const makeChart = function (type, Dates, Counts){
     });
 }
 
-*/
 
 
+
+// 393 851
 // 1536 864
 
 // ,{"country":"Aruba","code":"AW"} is removed from the json, because this gives the whole list of all countries present
