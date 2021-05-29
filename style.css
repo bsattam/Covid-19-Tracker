@@ -110,10 +110,14 @@ canvas{
 @media only screen and (max-width: 700px) {
     .heading{
         font-size: 50px;
+        letter-spacing: 5px;
     }
     #country-selector-button{
         width: 100px;
         font-size: 10px;
+    }
+    #country-dropdown{
+        width: 200px;
     }
     #country-search-button{
         width: 60px;
@@ -121,4 +125,5 @@ canvas{
         font-size: 10px;
         margin-left: 0;
     }
+    
 }
