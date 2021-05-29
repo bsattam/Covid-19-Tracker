@@ -3,10 +3,9 @@ let countryJSON = [{"country":"Afghanistan","code":"AF"},{"country":"Albania","c
 let countryDropdownString = "";
 countryJSON.forEach(countryListObject => {
     let tempCountry = countryListObject.country;
-    countryDropdownString += `<li><a class="dropdown-item country-list" href="#">${tempCountry}</a></li>`;
+    countryDropdownString += `<li><a class="dropdown-item country-list text-white" href="#">${tempCountry}</a></li>`;
 })
 //console.log(countryDropdownString);
-
 
 const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
@@ -26,14 +25,14 @@ countryList.forEach((item, index) => {
 
 const initiateGeneralDetailsContainer = function(){
     generalDetailsContainer.innerHTML = `
-    <h1 class="country-name"></h1>
-    <h3 class="confirmed-cases"></h3>
-    <h6 class="percentage-confirmed"></h6>
-    <h3 class="deaths"></h3>
-    <h3 class="recovered"></h3>
-    <h3 class="completely-vaccinated"></h3>
-    <h3 class="partially-vaccinated"></h3>
-    <h3 class="percentage-vaccinated"></h3>
+    <h5 class="country-name py-5 text-white"></h5>
+    <h5 class="confirmed-cases text-danger"></h5>
+    <h5 class="percentage-confirmed text-danger"></h5>
+    <h5 class="deaths text-danger"></h5>
+    <h5 class="recovered text-success"></h5>
+    <h5 class="completely-vaccinated text-success"></h5>
+    <h5 class="partially-vaccinated text-success"></h5>
+    <h5 class="percentage-vaccinated text-success pb-5"></h5>
     `
 }
 
@@ -48,7 +47,6 @@ let cardPercentageVaccinated;
 
 const generalDetailsContainer = document.getElementById('general-details-container');
 const canvasContainer = document.getElementById('canvas-container');
-
 
 
 const initiateDomOperators = function(){
@@ -144,12 +142,12 @@ const displayCountryHistoryData = function(data2){
         dailyRecoveredCounts.push(recoveredCounts[i]-recoveredCounts[i-1]);
     }
     canvasContainer.innerHTML = 
-    `<canvas id="chart-canvas-death" class="w-100 h-50"></canvas>
-    <canvas id="chart-canvas-daily-death" class="w-100 h-50"></canvas>
-    <canvas id="chart-canvas-confirmed" class="w-100 h-50"></canvas>
-    <canvas id="chart-canvas-daily-confirmed" class="w-100 h-50"></canvas>
-    <canvas id="chart-canvas-recovered" class="w-100 h-50"></canvas>
-    <canvas id="chart-canvas-daily-recovered" class="w-100 h-50"></canvas>`
+    `<canvas id="chart-canvas-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-daily-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-confirmed" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-daily-confirmed" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-daily-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>`
     makeChart('death', deathDates, deathCounts);
     makeChart('daily-death', deathDates, dailyDeathCounts);
     makeChart('confirmed', confirmedDates, confirmedCounts);
@@ -170,6 +168,8 @@ countrySearchButton.addEventListener('click', async ()=>{
     displayCountryHistoryData(data2);
     
 });
+
+
 
 
 const makeChart = function (type, Dates, Counts){
