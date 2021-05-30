@@ -46,6 +46,7 @@ p{
 .btn{
     border-color: beige;
     color: white;
+    width: 120px;
 }
 
 canvas{
@@ -78,7 +79,7 @@ canvas{
 #country-selector-button{
     width: 300px;
     background-color: #0a0a0a;
-    transition: 0.5s;
+    font-size: 20px;
 }
 
 .glow-border{
@@ -101,11 +102,9 @@ canvas{
 
 #country-dropdown > li >a:hover{
     background-color: black;
+    font-size: 18px;
 }
 
-.radio-button{
-    width: 100px;
-}
 
 #radio-button-container{
     display: none;
@@ -127,6 +126,7 @@ canvas{
     width: 75vw;
     margin: auto;
 }
+
 
 .bgdarkoverlay{
     background-color: #0a0a0a;
