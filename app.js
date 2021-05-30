@@ -30,13 +30,13 @@ countryList.forEach((item, index) => {
 
 const initiateGeneralDetailsContainer = function(){
     generalDetailsContainer.innerHTML = `
-    <p class="country-name py-5 text-white">Loading Data...</p>
+    <p class="country-name py-4 text-white">Loading Data...</p>
     <p class="confirmed-cases text-danger"></p>
     <p class="percentage-confirmed text-danger"></p>
     <p class="deaths text-danger"></p>
-    <p class="recovered text-success mt-5"></p>
+    <p class="recovered text-success mt-4"></p>
     <p class="completely-vaccinated text-success"></p>
-    <p class="partially-vaccinated text-success pb-5"></p>
+    <p class="partially-vaccinated text-success pb-4"></p>
     `
 }
 
@@ -51,6 +51,7 @@ let cardPercentageVaccinated;
 
 const generalDetailsContainer = document.getElementById('general-details-container');
 const canvasContainer = document.getElementById('canvas-container');
+const radioButtonContainer = document.getElementById('radio-button-container');
 const spinner = document.getElementById('spinner');
 
 
@@ -65,6 +66,8 @@ const initiateDomOperators = function(){
     cardPercentageVaccinated = document.querySelector('.percentage-vaccinated');
 }
 
+
+let radioButtons = document.getElementsByClassName('radio-button');
 
 
 const getData = async (url) => {
@@ -110,54 +113,132 @@ const checkError = function(count){
             count[i] = count[i-1];
     }
 }
-
+ 
 const displayCountryHistoryData = function(data2){
     
-    const deathDates = Object.keys(data2[0].All.dates);
-    deathDates.reverse();
-    let deathCounts = [];
-    deathDates.forEach((date)=>{
+    dates = Object.keys(data2[0].All.dates);
+    dates.reverse();
+    deathCounts = [];
+    dates.forEach((date)=>{
         deathCounts.push(data2[0].All.dates[date]);
     })
     checkError(deathCounts);
-    let dailyDeathCounts = [0];
-    for (let i=1; i<deathDates.length; i++)
+    dailyDeathCounts = [0];
+    for (let i=1; i<dates.length; i++)
         dailyDeathCounts.push(deathCounts[i]-deathCounts[i-1]);
-    const confirmedDates = Object.keys(data2[1].All.dates);
-    confirmedDates.reverse();
-    let confirmedCounts = [];
+    confirmedDates = dates;
+    confirmedCounts = [];
     confirmedDates.forEach(date => {
         confirmedCounts.push(data2[1].All.dates[date]);
     })
     checkError(confirmedCounts);
-    let dailyConfirmedCounts = [0];
-    for (let i=1; i<confirmedDates.length; i++){
+    dailyConfirmedCounts = [0];
+    for (let i=1; i<dates.length; i++){
         dailyConfirmedCounts.push(confirmedCounts[i]-confirmedCounts[i-1]);
     }
-    const recoveredDates = Object.keys(data2[2].All.dates);
-    recoveredDates.reverse();
+    recoveredDates = dates;
     let recoveredCounts = [];
     recoveredDates.forEach(date => {
         recoveredCounts.push(data2[2].All.dates[date]);
     })
     checkError(recoveredCounts);
-    let dailyRecoveredCounts = [0];
-    for (let i=1; i<recoveredDates.length; i++){
+    dailyRecoveredCounts = [0];
+    for (let i=1; i<dates.length; i++){
         dailyRecoveredCounts.push(recoveredCounts[i]-recoveredCounts[i-1]);
     }
+
+    let obj = {
+        a: dates, 
+        b: deathCounts, 
+        c: dailyDeathCounts, 
+        d: confirmedCounts, 
+        e: dailyConfirmedCounts,
+        f: recoveredCounts, 
+        g: dailyRecoveredCounts
+    };
+    
+    let chartAll = {
+        chartDeathDates : dates,
+        chartDeathCounts : deathCounts,
+        chartDailyDeathCounts : dailyDeathCounts,
+        chartConfirmedCounts : confirmedCounts,
+        chartDailyConfirmedCounts : dailyConfirmedCounts,
+        chartRecoveredCounts : recoveredCounts,
+        chartDailyRecoveredCounts : dailyRecoveredCounts,
+    };
+    displayChart(chartAll);
+
+    let chart30 = calculateChart(30, obj);
+    let chart90 = calculateChart(90, obj);
+    let chart180 = calculateChart(180, obj);
+
+    radioButtons = document.getElementsByClassName('radio-button');
+    for (let i=0; i<4; i++){
+        radioButtons[i].addEventListener('click', ()=>{
+            if (i==0)
+                displayChart(chart30);
+            else if (i==1)
+                displayChart(chart90);
+            else if (i==2)
+                displayChart(chart180);
+            else
+                displayChart(chartAll);
+        })
+    }
+    
+    
+}
+
+const calculateChart = function(timeSpan, obj){
+    const {a,b,c,d,e,f,g} = obj;
+    let l = a.length;
+    let obj2 = {
+        chartDeathDates : [],
+        chartDeathCounts : [],
+        chartDailyDeathCounts : [],
+        chartConfirmedCounts : [],
+        chartDailyConfirmedCounts : [],
+        chartRecoveredCounts : [],
+        chartDailyRecoveredCounts : [],
+    }
+    for (let i=l-timeSpan; i<l; i++){
+        obj2.chartDeathDates.push(a[i]);
+        obj2.chartDeathCounts.push(b[i]);
+        obj2.chartDailyDeathCounts.push(c[i]);
+        obj2.chartConfirmedCounts.push(d[i]);
+        obj2.chartDailyConfirmedCounts.push(e[i]);
+        obj2.chartRecoveredCounts.push(f[i]);
+        obj2.chartDailyRecoveredCounts.push(g[i]);
+
+    }
+    return obj2;
+}
+/*
+const createRadioButtons = function (){
+    let timeSpan = dates.length;
+    radioButtons[0].addEventListener('click',()=>{timeSpan = 30})
+    radioButtons[1].addEventListener('click',()=>{timeSpan = 180})
+    radioButtons[2].addEventListener('click',()=> {timeSpan = dates.length})
+    console.log(timeSpan);
+}
+*/
+
+const displayChart = function(obj){
+    const {chartDeathDates, chartDeathCounts, chartDailyDeathCounts, chartConfirmedCounts, chartDailyConfirmedCounts, chartRecoveredCounts, chartDailyRecoveredCounts} = obj;
     canvasContainer.innerHTML = 
-    `<canvas id="chart-canvas-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-daily-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-confirmed" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    `
+    <canvas id="chart-canvas-confirmed" class="w-100 h-50 mb-5 p-3 bgdarkoverlay"></canvas>
     <canvas id="chart-canvas-daily-confirmed" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
+    <canvas id="chart-canvas-daily-death" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
     <canvas id="chart-canvas-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
     <canvas id="chart-canvas-daily-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>`
-    makeChart('death', deathDates, deathCounts);
-    makeChart('daily-death', deathDates, dailyDeathCounts);
-    makeChart('confirmed', confirmedDates, confirmedCounts);
-    makeChart('daily-confirmed', confirmedDates, dailyConfirmedCounts);
-    makeChart('recovered', recoveredDates, recoveredCounts);
-    makeChart('daily-recovered', recoveredDates, dailyRecoveredCounts);
+    makeChart('death', chartDeathDates, chartDeathCounts);
+    makeChart('daily-death', chartDeathDates, chartDailyDeathCounts);
+    makeChart('confirmed', chartDeathDates, chartConfirmedCounts);
+    makeChart('daily-confirmed', chartDeathDates, chartDailyConfirmedCounts);
+    makeChart('recovered', chartDeathDates, chartRecoveredCounts);
+    makeChart('daily-recovered', chartDeathDates, chartDailyRecoveredCounts);
 }
 
 const countrySearchButton = document.getElementById('country-search-button');
@@ -173,6 +254,7 @@ countrySearchButton.addEventListener('click', async ()=>{
     const data2 = await fetchCountryHistoryData(selectedCountryCode);
     console.log(data2);
     spinner.style.display = "none";
+    radioButtonContainer.style.display = 'block';
     displayCountryHistoryData(data2);
     
 });
@@ -183,7 +265,7 @@ countrySearchButton.addEventListener('click', async ()=>{
 const makeChart = function (type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
     if (window.screen.width < 700)
-        chart.height = 600;
+        chart.height = 500;
 
     
     var myChart = new Chart(chart, {
@@ -194,12 +276,12 @@ const makeChart = function (type, Dates, Counts){
                 label: `Number of ${type}`,
                 data: Counts,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
+                    'rgba(200, 0, 0, 1)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)'
+                    'rgba(200, 0, 0, 1)'
                 ],
-                borderWidth: 2,
+                borderWidth: 1,
                 pointRadius: 2,
                 pointBorderWidth: 0
             }]
@@ -208,14 +290,7 @@ const makeChart = function (type, Dates, Counts){
         options: {
             responsive: true,
             mainAspectRatio: false,
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-            },
+            
             scales: {
                 yAxes: [{
                     ticks: {

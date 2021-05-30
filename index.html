@@ -22,7 +22,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand text-light" href="#">COVID-19-TRACKER</a>
+          <a class="navbar-brand text-light"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon navbar-dark"></span>
           </button>
@@ -65,7 +65,30 @@
     <button id="country-search-button"type="button" class="btn btn-primary d-inline ml-3">Search</button>
   </div>
 
+<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
   <div id="general-details-container" class="bgdarkoverlay"> </div>
+
+  <div id="radio-button-container" class="mx-auto w-25">
+    <div class="btn-group d-flex justify-content-around" role="group" aria-label="Basic radio toggle button group">
+      <div class="radio-button">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio1">1 Month</label>
+      </div>
+      <div class="radio-button">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2">3 Months</label>
+      </div>
+      <div class="radio-button">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3">6 Months</label>
+      </div>
+      <div class="radio-button">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio4">All</label>
+      </div>
+    </div>
+  </div>
 
   <div id="canvas-container-container">
     <div id="canvas-container"> </div>
