@@ -53,6 +53,10 @@ canvas{
     height: 500px;
 }
 
+.canvas-chart{
+    width: 575px;
+}
+
 #background-image{
     width: 100%;
     height: 100vh;
@@ -123,8 +127,12 @@ canvas{
 }
 
 #canvas-container-container{
-    width: 75vw;
+    width: 80%;
     margin: auto;
+}
+
+#canvas-container{
+    display: inline-block;
 }
 
 
@@ -157,6 +165,13 @@ canvas{
     .btn{
         font-size: 10px;
         width: 75px;
+    }
+    .canvas-chart{
+        width: 97vw;
+    }
+
+    canvas{
+        height: 600px;
     }
 
     #country-selector-button{

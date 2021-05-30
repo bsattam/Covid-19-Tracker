@@ -5,11 +5,6 @@ countryJSON.forEach(countryListObject => {
     let tempCountry = countryListObject.country;
     countryDropdownString += `<li><a class="dropdown-item country-list text-white" href="#">${tempCountry}</a></li>`;
 })
-//console.log(countryDropdownString);
-/*
-const heading = document.querySelector('.heading');
-heading.innerText = "" + window.screen.width + " " + window.screen.height;
-*/
 
 const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
@@ -30,7 +25,7 @@ countryList.forEach((item, index) => {
 
 const initiateGeneralDetailsContainer = function(){
     generalDetailsContainer.innerHTML = `
-    <p class="country-name py-4 text-white">Loading Data...</p>
+    <p class="country-name py-4 text-white"></p>
     <p class="confirmed-cases text-danger"></p>
     <p class="percentage-confirmed text-danger"></p>
     <p class="deaths text-danger"></p>
@@ -113,6 +108,8 @@ const checkError = function(count){
             count[i] = count[i-1];
     }
 }
+
+let chart1, chart2, chart3, chart4, chart5, chart6;
  
 const displayCountryHistoryData = function(data2){
     
@@ -176,17 +173,37 @@ const displayCountryHistoryData = function(data2){
     for (let i=0; i<4; i++){
         radioButtons[i].addEventListener('click', ()=>{
             if (i==0)
-                displayChart(chart30);
+                editChart(chart30);
             else if (i==1)
-                displayChart(chart90);
+                editChart(chart90);
             else if (i==2)
-                displayChart(chart180);
+                editChart(chart180);
             else
-                displayChart(chartAll);
+                editChart(chartAll);
         })
     }
-    
-    
+}
+
+const editChart = function (obj) {
+    const {chartDeathDates, chartDeathCounts, chartDailyDeathCounts, chartConfirmedCounts, chartDailyConfirmedCounts, chartRecoveredCounts, chartDailyRecoveredCounts} = obj;
+    chart1.data.labels = chartDeathDates;
+    chart1.data.datasets[0].data = chartDeathCounts;
+    chart1.update();
+    chart2.data.labels = chartDeathDates;
+    chart2.data.datasets[0].data = chartDailyDeathCounts;
+    chart2.update();
+    chart3.data.labels = chartDeathDates;
+    chart3.data.datasets[0].data = chartConfirmedCounts;
+    chart3.update();
+    chart4.data.labels = chartDeathDates;
+    chart4.data.datasets[0].data = chartDailyConfirmedCounts;
+    chart4.update();
+    chart5.data.labels = chartDeathDates;
+    chart5.data.datasets[0].data = chartRecoveredCounts;
+    chart5.update();
+    chart6.data.labels = chartDeathDates;
+    chart6.data.datasets[0].data = chartDailyRecoveredCounts;
+    chart6.update();
 }
 
 const calculateChart = function(timeSpan, obj){
@@ -213,32 +230,24 @@ const calculateChart = function(timeSpan, obj){
     }
     return obj2;
 }
-/*
-const createRadioButtons = function (){
-    let timeSpan = dates.length;
-    radioButtons[0].addEventListener('click',()=>{timeSpan = 30})
-    radioButtons[1].addEventListener('click',()=>{timeSpan = 180})
-    radioButtons[2].addEventListener('click',()=> {timeSpan = dates.length})
-    console.log(timeSpan);
-}
-*/
+
 
 const displayChart = function(obj){
     const {chartDeathDates, chartDeathCounts, chartDailyDeathCounts, chartConfirmedCounts, chartDailyConfirmedCounts, chartRecoveredCounts, chartDailyRecoveredCounts} = obj;
     canvasContainer.innerHTML = 
     `
-    <canvas id="chart-canvas-total-confirmed-cases" class="w-100 h-50 mb-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-daily-confirmed-cases" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-total-deaths" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-daily-deaths" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-total-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>
-    <canvas id="chart-canvas-daily-recovered" class="w-100 h-50 my-5 p-3 bgdarkoverlay"></canvas>`
-    makeChart(1, 'total-confirmed-cases', chartDeathDates, chartConfirmedCounts);
-    makeChart(1, 'daily-confirmed-cases', chartDeathDates, chartDailyConfirmedCounts);
-    makeChart(2, 'total-deaths', chartDeathDates, chartDeathCounts);
-    makeChart(2, 'daily-deaths', chartDeathDates, chartDailyDeathCounts);
-    makeChart(3, 'total-recovered', chartDeathDates, chartRecoveredCounts);
-    makeChart(3, 'daily-recovered', chartDeathDates, chartDailyRecoveredCounts);
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-total-confirmed-cases" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-daily-confirmed-cases" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-total-deaths" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-daily-deaths" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-total-recovered" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>
+    <div class="canvas-chart d-inline-block"><canvas id="chart-canvas-daily-recovered" class="h-50 w-100 mt-5 p-3 bgdarkoverlay"></canvas></div>`
+    chart1 = makeChart(1, 'total-confirmed-cases', chartDeathDates, chartConfirmedCounts);
+    chart2 = makeChart(1, 'daily-confirmed-cases', chartDeathDates, chartDailyConfirmedCounts);
+    chart3 = makeChart(2, 'total-deaths', chartDeathDates, chartDeathCounts);
+    chart4 = makeChart(2, 'daily-deaths', chartDeathDates, chartDailyDeathCounts);
+    chart5 = makeChart(3, 'total-recovered', chartDeathDates, chartRecoveredCounts);
+    chart6 = makeChart(3, 'daily-recovered', chartDeathDates, chartDailyRecoveredCounts);
 }
 
 const countrySearchButton = document.getElementById('country-search-button');
@@ -266,6 +275,9 @@ const makeChart = function (id, type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
     if (window.screen.width < 700)
         chart.height = 400;
+    else
+        chart.height = 500;
+
     let color;
     if (id==1)
         color = 'rgba(0, 186, 232';        
@@ -291,38 +303,43 @@ const makeChart = function (id, type, Dates, Counts){
                 pointRadius: 1,
                 pointBorderWidth: 0,
                 fill: true
-            }]
+            }],
+            
             
         },
         options: {
             responsive: true,
             mainAspectRatio: false,
+            animation: false,
+            title:{
+                display: true,
+                text: 'Corona-Status'
+            },
+
+            tooltips: {
+                fontSize: 30,
+                mode: 'index',
+                intersect: false,
+                displayColors: false,
+                bodyFontSize: 15,
+                titleFontSize: 17
+            },
             
             scales: {
                 yAxes: [{
                     ticks: {
-                        suggestedMin: 0,
-                        reverse: false,
                         beginAtZero:true
                     }
                 }],
                 xAxes: [{
-                    ticks: {
-                    reverse: true,
-                      beginAtZero: true
+                        ticks: {
+                        beginAtZero: true
                     }
                 }]
             }
         }
     });
-
-   
-    
-
-    /*<th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>*/
+    return myChart;
 }
 
 
@@ -330,8 +347,6 @@ const makeChart = function (id, type, Dates, Counts){
 
 // 393 851
 // 1536 864
-
-// ,{"country":"Aruba","code":"AW"} is removed from the json, because this gives the whole list of all countries present
 
 
 
