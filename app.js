@@ -6,6 +6,11 @@ countryJSON.forEach(countryListObject => {
     countryDropdownString += `<li><a class="dropdown-item country-list text-white" href="#">${tempCountry}</a></li>`;
 })
 
+const loadingComplete = function(){
+    const loading = document.getElementById('loading');
+    loading.style.display = 'none';
+}
+
 const countryDropDown = document.getElementById('country-dropdown');
 countryDropDown.innerHTML = countryDropdownString;
 
@@ -250,22 +255,32 @@ const displayChart = function(obj){
     chart6 = makeChart(3, 'daily-recovered', chartDeathDates, chartDailyRecoveredCounts);
 }
 
+const displayError = function(){
+    cardCountryName.innerText = 'Country Not Found';
+    spinner.style.display = 'none';
+}
+
 const countrySearchButton = document.getElementById('country-search-button');
 countrySearchButton.addEventListener('click', async ()=>{
-    radioButtonContainer.style.display = 'none';
-    spinner.style.display = "block";
-    canvasContainer.innerHTML = "";
-    generalDetailsContainer.style.display = "none";
-    initiateGeneralDetailsContainer();
-    initiateDomOperators();
-    const data1 = await fetchCountryGeneralData(selectedCountryCode);
-    generalDetailsContainer.style.display = "block";
-    displayCountryGeneralData(data1);
-    const data2 = await fetchCountryHistoryData(selectedCountryCode);
-    console.log(data2);
-    spinner.style.display = "none";
-    radioButtonContainer.style.display = 'block';
-    displayCountryHistoryData(data2);
+    try{
+        radioButtonContainer.style.display = 'none';
+        spinner.style.display = "block";
+        canvasContainer.innerHTML = "";
+        generalDetailsContainer.style.display = "none";
+        initiateGeneralDetailsContainer();
+        initiateDomOperators();
+        const data1 = await fetchCountryGeneralData(selectedCountryCode);
+        generalDetailsContainer.style.display = "block";
+        displayCountryGeneralData(data1);
+        const data2 = await fetchCountryHistoryData(selectedCountryCode);
+        console.log(data2);
+        spinner.style.display = "none";
+        radioButtonContainer.style.display = 'block';
+        displayCountryHistoryData(data2);
+    }
+    catch(e){
+        displayError();
+    }
 });
 
 
@@ -273,10 +288,15 @@ countrySearchButton.addEventListener('click', async ()=>{
 
 const makeChart = function (id, type, Dates, Counts){
     const chart = document.getElementById(`chart-canvas-${type}`);
-    if (window.screen.width < 700)
+    let tooltipFont;
+    if (window.screen.width < 700){
         chart.height = 400;
-    else
+        tooltipFont = 13
+    }
+    else{
         chart.height = 500;
+        tooltipFont = 17;
+    }
 
     let color;
     if (id==1)
@@ -311,18 +331,14 @@ const makeChart = function (id, type, Dates, Counts){
             responsive: true,
             mainAspectRatio: false,
             animation: false,
-            title:{
-                display: true,
-                text: 'Corona-Status'
-            },
 
             tooltips: {
                 fontSize: 30,
                 mode: 'index',
                 intersect: false,
                 displayColors: false,
-                bodyFontSize: 15,
-                titleFontSize: 17
+                bodyFontSize: (tooltipFont-2),
+                titleFontSize: tooltipFont
             },
             
             scales: {

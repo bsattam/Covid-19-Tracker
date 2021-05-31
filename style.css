@@ -11,6 +11,15 @@ p{
     padding: 0;
 }
 
+#loading{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0a0f;
+    z-index: 100;
+}
+
 .navbar-brand{
     background-image: url(mylogo.png);
     width: 45px;
