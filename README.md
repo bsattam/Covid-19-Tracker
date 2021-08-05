@@ -9,4 +9,4 @@
 ### v. User can manually change the time-duration of the chart. 4 available options are 1 month, 3 months, 6 months, and all time ie since 22.01.2020
 ### API used: https://github.com/M-Media-Group/Covid-19-API
 
-# Website Link: https://bsattam.github.io/Covid-19-Tracker/
+### Website Link: https://bsattam.github.io/Covid-19-Tracker/
