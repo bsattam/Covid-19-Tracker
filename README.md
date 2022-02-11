@@ -1,12 +1,31 @@
-# Covid-19-Tracker
+<img src = "https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-1.png">
+<h3 align = "center">Track Covid 19 Spread Around The World</h3>
 
-## This website fetches real-time data about Covid-19 spread, and vaccinations around the world.
-## Main Features:-
-### i. This website fetches country-wise data of total number of deaths, active cases and recovered persons
-### ii. This website fetches country-wise vaccination data: Total vaccinated, partially vaccinated
-### iii. This website also fetches the total population of that country, and shows the percentage of population vaccinated at least one dose
-### iv. This websites displays the historical data of total and daily counts of active cases, deaths, recovered persons in a chart for visualisation
-### v. User can manually change the time-duration of the chart. 4 available options are 1 month, 3 months, 6 months, and all time ie since 22.01.2020
-### API used: https://github.com/M-Media-Group/Covid-19-API
+## Motivation
+I developed this website while learning asynchronous javascript, and learning how to call APIs. The world was shut down due to Covid-19, and I wanted to make something related to current world affairs. 
 
-### Website Link: https://bsattam.github.io/Covid-19-Tracker/
+## Features
+- Fetching data about covid 19 spread and vaccination using API calls
+- Daily and total count of death, affected and recovered, for different user-defined intervals 
+- Visualization through charts using ChartJS
+
+## Demo
+
+Landing Page           |  Total Count
+:-------------------------:|:-------------------------:
+![](https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-1.png)  |  ![](https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-2.png)
+Chart             |  Chart
+![](https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-3.png)  |  ![](https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-4.png)
+
+
+## Future Plans
+- Adding World Map to visualize covid-spread patterns
+- Adding daily statistics about vaccination
+
+## Feedback
+
+If you have any feedback, please reach out to me at bsattam@gmail.com
+
+## License
+
+[GPL](https://choosealicense.com/licenses/gpl-3.0/)
