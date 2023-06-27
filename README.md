@@ -1,6 +1,9 @@
 <img src = "https://github.com/bsattam/Covid-19-Tracker/blob/main/Covid%2019%20Tracker%20Github%20Images/cov-19-1.png">
 <h3 align = "center">Track Covid 19 Spread Around The World</h3>
 
+## Note
+This website does not work anymore because the source API has been discontinued.
+
 ## Motivation
 I developed this website while learning asynchronous javascript, and learning how to call APIs. The world was shut down due to Covid-19, and I wanted to make something related to current world affairs. 
 
